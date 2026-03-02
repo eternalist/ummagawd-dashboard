@@ -2,43 +2,66 @@
 
 A comprehensive dashboard for managing Ummagawd Company products, tracking development progress, financials, and inventory.
 
-## Features
+## 🚀 GitHub Pages Setup
 
-- 📊 **Dashboard Overview**: Key metrics and statistics
-- 📈 **Financial Tracking**: Profit margins, costs, and investment monitoring  
-- 📋 **Product Management**: Complete product lifecycle tracking
-- 💰 **Expense Tracking**: Budget monitoring with visual progress indicators
-- 📅 **Timeline Management**: Track development milestones and phases
-- 🎨 **Dark Theme**: Modern, responsive UI with dark theme
-- 📱 **Mobile Responsive**: Works on desktop and mobile devices
+This dashboard is designed to work with GitHub Pages - no server required!
 
-## Files
+### Features
+- ✅ **Fully Interactive** - Add, edit, delete products
+- ✅ **Data Persistence** - Uses browser localStorage
+- ✅ **Export/Import** - Backup and restore your data
+- ✅ **Responsive Design** - Works on desktop and mobile
+- ✅ **Dark Theme** - Modern UI with dark theme
+- ✅ **Charts & Analytics** - Visual data representation
 
-- `complete-dashboard.html` - Full standalone dashboard with all data
-- `styles.css` - Dark theme styles and responsive design
-- `app.js` - Main dashboard functionality with charts
-- `product-details.js` - Product detail view with expenses and timeline
+### Quick Start
 
-## Quick Start
+1. **Fork this repository**
+2. **Enable GitHub Pages:**
+   - Go to Settings → Pages
+   - Source: Deploy from a branch
+   - Branch: main
+   - Click Save
+3. **Access your dashboard:**
+   - Wait 2-3 minutes for deployment
+   - Visit: `https://[your-username].github.io/ummagawd-dashboard/`
 
-1. Open `complete-dashboard.html` in your browser for the full dashboard
-2. For development, use the separate CSS/JS files
+### Using the Dashboard
 
-## Data
+#### Add Products
+- Click "Add Product" button
+- Fill in product details
+- Click "Save Product"
 
-The dashboard includes real product data for 12 Ummagawd products including:
-- Sidekick (In Development)
-- Grinderino (In Production)
-- Demibot Frame (In Production)
-- Remix V2 (Discontinued)
-- And 8 more products...
+#### Edit Products
+- Click "Edit" button on any product row
+- Modify details
+- Click "Save Product"
 
-## Technologies
+#### Delete Products
+- Click "Delete" button on any product row
+- Confirm deletion
 
-- Pure HTML/CSS/JavaScript (no frameworks required)
-- Chart.js for data visualization
-- Responsive grid layout
-- Modern CSS with custom properties
+#### Data Management
+- **Export Data**: Click "Export Data" to download a JSON backup
+- **Import Data**: Click "Import Data" to restore from a JSON file
+- **Auto-save**: All changes are automatically saved in your browser
+
+### Data Storage
+- Data is stored in your browser's localStorage
+- Data persists between sessions on the same device/browser
+- Use Export/Import to transfer data between devices
+
+### Customization
+- Edit `styles.css` to change colors and styling
+- Edit `app.js` to modify functionality
+- Edit `index.html` to change layout
+
+### Browser Support
+- Chrome/Edge (recommended)
+- Firefox
+- Safari
+- Mobile browsers
 
 ---
 
