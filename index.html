@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ummagawd Product Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚁 Ummagawd Product Dashboard</h1>
+            <div class="header-actions">
+                <button id="addProductBtn" class="btn btn-primary">Add Product</button>
+                <button id="refreshBtn" class="btn btn-secondary">Refresh</button>
+            </div>
+        </header>
+        
+        <div class="section">
+            <h2>📈 Dashboard Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Products</h3>
+                    <div class="stat-value" id="totalProducts">-</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Products</h3>
+                    <div class="stat-value" id="activeProducts">-</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Investment</h3>
+                    <div class="stat-value" id="totalInvestment">-</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Units Sold</h3>
+                    <div class="stat-value" id="totalUnitsSold">-</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📊 Analytics</h2>
+            <div class="charts-section">
+                <div class="chart-container">
+                    <h3>Product Status Distribution</h3>
+                    <canvas id="statusChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Financial Overview</h3>
+                    <canvas id="financialChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📋 Product List</h2>
+            <div class="table-container">
+                <table id="productsTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Retail Price</th>
+                            <th>Cost</th>
+                            <th>Margin</th>
+                            <th>Units Sold</th>
+                            <th>Progress</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        <tr><td colspan="8" class="loading">Loading product data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Add Product</h2>
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" id="productName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="productStatus" required>
+                            <option value="Concept">Concept</option>
+                            <option value="In Development">In Development</option>
+                            <option value="In Production">In Production</option>
+                            <option value="Discontinued">Discontinued</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Retail Price ($)</label>
+                        <input type="number" id="retailPrice" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Product Cost ($)</label>
+                        <input type="number" id="productCost" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Development Budget ($)</label>
+                        <input type="number" id="developmentBudget" step="0.01" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Marketing Budget ($)</label>
+                        <input type="number" id="marketingBudget" step="0.01" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Units Sold</label>
+                        <input type="number" id="unitsSold" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Projected Demand</label>
+                        <input type="number" id="projectedDemand" min="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="productDescription" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
