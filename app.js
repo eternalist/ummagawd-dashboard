@@ -6,9 +6,16 @@ let chartInstances = {};
 
 // Initialize dashboard
 document.addEventListener('DOMContentLoaded', () => {
-    loadDashboard();
-    setupEventListeners();
-    setupDataManagement();
+    console.log('🚁 Ummagawd Dashboard initializing...');
+    try {
+        loadDashboard();
+        setupEventListeners();
+        setupDataManagement();
+        console.log('✅ Dashboard initialized successfully');
+    } catch (error) {
+        console.error('❌ Error initializing dashboard:', error);
+        showNotification('Error initializing dashboard', 'error');
+    }
 });
 
 // Load dashboard data from localStorage
@@ -24,6 +31,7 @@ function loadDashboard() {
             // Use default data if nothing saved
             products = getDefaultProducts();
             saveProducts();
+            // Don't show error on first load
         }
         
         let dashboardData;
@@ -36,7 +44,8 @@ function loadDashboard() {
         
         updateStats(dashboardData);
         updateProductsTable();
-        createCharts(products);
+        // Add small delay to ensure DOM is ready for charts
+        setTimeout(() => createCharts(products), 100);
     } catch (error) {
         console.error('Error loading dashboard:', error);
         // Fallback to default data
@@ -44,7 +53,12 @@ function loadDashboard() {
         const dashboardData = calculateDashboardData();
         updateStats(dashboardData);
         updateProductsTable();
-        createCharts(products);
+        // Add small delay to ensure DOM is ready for charts
+        setTimeout(() => createCharts(products), 100);
+        // Only show error notification if it's not a first-load scenario
+        if (localStorage.getItem('ummagawdProducts') !== null) {
+            showNotification('Error loading saved data, using defaults', 'error');
+        }
     }
 }
 
@@ -96,15 +110,24 @@ function updateStats(data) {
 
 // Create charts
 function createCharts(productsData) {
-    // Status distribution chart
-    const statusCtx = document.getElementById('statusChart').getContext('2d');
-    const statusCounts = {};
-    productsData.forEach(p => {
-        statusCounts[p.status] = (statusCounts[p.status] || 0) + 1;
-    });
-    
-    if (chartInstances.status) chartInstances.status.destroy();
-    chartInstances.status = new Chart(statusCtx, {
+    try {
+        // Status distribution chart
+        const statusChartEl = document.getElementById('statusChart');
+        const financialChartEl = document.getElementById('financialChart');
+        
+        if (!statusChartEl || !financialChartEl) {
+            console.warn('Chart canvas elements not found, skipping charts');
+            return;
+        }
+        
+        const statusCtx = statusChartEl.getContext('2d');
+        const statusCounts = {};
+        productsData.forEach(p => {
+            statusCounts[p.status] = (statusCounts[p.status] || 0) + 1;
+        });
+        
+        if (chartInstances.status) chartInstances.status.destroy();
+        chartInstances.status = new Chart(statusCtx, {
         type: 'doughnut',
         data: {
             labels: Object.keys(statusCounts),
@@ -136,8 +159,8 @@ function createCharts(productsData) {
         profit: (p.retailPrice - p.productCost) * (p.unitsSold || 0)
     }));
     
-    if (chartInstances.financial) chartInstances.financial.destroy();
-    chartInstances.financial = new Chart(financialCtx, {
+        if (chartInstances.financial) chartInstances.financial.destroy();
+        chartInstances.financial = new Chart(financialCtx, {
         type: 'bar',
         data: {
             labels: chartData.map(d => d.name),
@@ -186,7 +209,11 @@ function createCharts(productsData) {
                 }
             }
         }
-    });
+        });
+    } catch (error) {
+        console.error('Error creating charts:', error);
+        // Don't show notification for chart errors, just log them
+    }
 }
 
 // Update products table
